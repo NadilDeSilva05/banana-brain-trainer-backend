@@ -1,6 +1,5 @@
 import express, { Response } from 'express';
 import GameSession from '@/models/GameSession';
-import User from '@/models/User';
 import { asyncHandler } from '@/middleware/errorHandler';
 
 const router = express.Router();
