@@ -20,7 +20,9 @@ router.post(
     body('email').isEmail().withMessage('Please provide a valid email'),
     body('password')
       .isLength({ min: 6 })
-      .withMessage('Password must be at least 6 characters'),
+      .withMessage('Password must be at least 6 characters')
+      .matches(/^(?=.*[a-zA-Z])(?=.*\d)/)
+      .withMessage('Password must include both letters and numbers'),
   ],
   validate([
     body('username').notEmpty().withMessage('Username is required'),
@@ -51,7 +53,7 @@ router.post(
     });
 
     // Generate token
-    const token = generateToken(user._id.toString());
+    const token = generateToken(user.id);
 
     res.status(201).json({
       success: true,
@@ -106,7 +108,7 @@ router.post(
     }
 
     // Generate token
-    const token = generateToken(user._id.toString());
+    const token = generateToken(user.id);
 
     res.json({
       success: true,

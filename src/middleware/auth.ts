@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import jwt, { SignOptions } from 'jsonwebtoken';
 import { env } from '@/config/env';
 import User, { IUser } from '@/models/User';
 
@@ -58,8 +58,10 @@ export const protect = async (
 };
 
 export const generateToken = (id: string): string => {
-  return jwt.sign({ id }, env.JWT_SECRET, {
-    expiresIn: env.JWT_EXPIRE,
-  });
+  return jwt.sign(
+    { id },
+    env.JWT_SECRET,
+    { expiresIn: env.JWT_EXPIRE } as SignOptions
+  );
 };
 
